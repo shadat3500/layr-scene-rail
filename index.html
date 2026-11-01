@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LAYR Scene Rail</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page" id="page">
+    <div class="util">
+      <a href="#">Find a Store</a><a href="#">Help</a><a href="#">Join Us</a><a href="#">Sign In</a>
+    </div>
+
+    <header class="header">
+      <!-- Brand mark: replace this block with your own logo -->
+      <a class="logo" href="#" aria-label="LAYR home">
+        <svg viewBox="0 0 30 22" fill="none"><path d="M2 6 Q15 13 28 6" stroke="#111" stroke-width="3.2" stroke-linecap="round"/><path d="M15 9.6v4.2a2.6 2.6 0 1 0 2.6 2.6" stroke="#111" stroke-width="2.2" stroke-linecap="round"/></svg>
+        <span>LAYR</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#">Home</a>
+        <a href="#">Collection</a>
+        <a href="#" class="active" id="sceneLink" title="Switch scene">Scene Rail</a>
+        <a href="#">Contact</a>
+      </nav>
+
+      <div class="tools">
+        <label class="search" id="search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="12.5" r="6.5"/><path d="M15.4 17.4 20 22"/><path d="M18.5 2.5v4M16.5 4.5h4"/></svg>
+          <input id="searchInput" type="text" placeholder="Search" autocomplete="off" />
+          <div class="search-results" id="searchResults"></div>
+        </label>
+        <button class="icon-btn m-search" id="mSearch" aria-label="Search">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="10.5" cy="12.5" r="6.5"/><path d="M15.4 17.4 20 22"/><path d="M18.5 2.5v4M16.5 4.5h4"/></svg>
+        </button>
+        <button class="icon-btn" aria-label="Account">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="8" r="3.8"/><path d="M4.5 20.5c.8-3.8 3.7-6 7.5-6s6.7 2.2 7.5 6"/></svg>
+        </button>
+        <button class="icon-btn" id="bagBtn" aria-label="Cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"><path d="M4.5 8.5h15l-1.2 12h-12.6z"/><path d="M8.5 10V7a3.5 3.5 0 0 1 7 0v3" stroke-linecap="round"/></svg>
+          <span class="badge" id="badge">0</span>
+        </button>
+        <button class="icon-btn menu-btn" id="menuBtn" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 9h14M5 15h14"/></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="stage" id="stage">
+      <div class="scene" id="scene" aria-hidden="true"></div>
+
+      <div class="hero">
+        <div class="eyebrow"><span>New Collection</span><i></i><span>Premium Streetwear</span></div>
+        <h1 class="headline"><span class="dark">Layers that</span> <span class="soft">hang right.</span></h1>
+      </div>
+
+      <div class="rail-zone" id="railZone">
+        <svg class="rail-svg" id="railSvg">
+          <defs>
+            <linearGradient id="railMetal" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#f4f4f4" />
+              <stop offset="0.35" stop-color="#c9c9cc" />
+              <stop offset="0.7" stop-color="#8d8e92" />
+              <stop offset="1" stop-color="#5b5c60" />
+            </linearGradient>
+          </defs>
+          <path id="railShadow" fill="none" stroke="rgba(0,0,0,0.10)" stroke-width="12" stroke-linecap="round" />
+          <path id="railPath" fill="none" stroke="url(#railMetal)" stroke-width="9" stroke-linecap="round" />
+          <path id="railShine" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="1.6" stroke-linecap="round" />
+        </svg>
+        <div id="items"></div>
+      </div>
+
+      <div class="foot">
+        <div class="picked" id="picked">
+          <span class="hint" id="hint">Hover a piece · click to look closer</span>
+          <b class="p-name" id="pName"></b>
+          <span class="p-price" id="pPrice"></span>
+        </div>
+        <div class="center"><div class="progress"><i id="progressBar"></i></div></div>
+        <div class="copy">
+          <p>Crafted in heavyweight fleece.</p>
+          <p>Cut oversized. Made to last.</p>
+          <a class="shop" href="#">Shop the Collection
+            <svg viewBox="0 0 16 12" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M1 6h13M9.5 1.5 14 6l-4.5 4.5"/></svg>
+          </a>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- product view -->
+  <section class="pv" id="pv" aria-modal="true" role="dialog" aria-label="Product">
+    <button class="pv-close" id="pvClose">Close
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <div class="pv-inner">
+      <div class="pv-media">
+        <div class="pv-hang" id="pvHang">
+          <div class="wire"></div>
+          <img class="pv-img" id="pvImg" alt="" />
+        </div>
+      </div>
+      <div class="pv-info">
+        <div class="pv-count" id="pvCount">01 / 15</div>
+        <div class="pv-name" id="pvName"></div>
+        <div class="pv-price" id="pvPrice"></div>
+        <div class="pv-tabs"><button class="on" data-view="front">Front</button><button data-view="back">Back</button></div>
+        <div class="pv-label">SIZE</div>
+        <div class="sizes" id="sizes"><button class="on">S</button><button>L</button><button>M</button><button>XL</button></div>
+        <button class="add" id="addBtn"><i class="spin"></i>
+          <svg class="ok" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8.5 6.5 12 13 4.5"/></svg>
+          <span id="addLabel">Add to cart</span></button>
+        <a href="#" class="view-cart" id="viewCart">View cart →</a>
+        <div class="pv-foot"><span id="pvFootName"></span><a href="#">View product page</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- cart drawer -->
+  <aside class="drawer" id="drawer" aria-label="Cart">
+    <div class="d-head">
+      <h2>Cart</h2><span class="d-count" id="dCount">0</span>
+      <button class="d-close" id="dClose" aria-label="Close cart">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg>
+      </button>
+    </div>
+    <div class="d-list" id="dList"></div>
+    <div class="d-foot">
+      <div class="d-row"><span>Discount</span><button id="discToggle" aria-label="Add discount">+</button></div>
+      <form class="disc-box" id="discBox"><input id="discInput" placeholder="Discount code" /><button type="submit">Apply</button></form>
+      <div class="disc-note" id="discNote">Discount codes are applied at checkout.</div>
+      <div class="d-row"><span>Estimated total</span><span class="d-total" id="dTotal">$0.00 USD</span></div>
+      <div class="d-tax">Taxes and shipping calculated at checkout.</div>
+      <button class="checkout" id="checkout">Check out</button>
+      <div class="co-note" id="coNote">Demo store: checkout is not connected yet.</div>
+    </div>
+  </aside>
+
+  <!-- mobile menu -->
+  <div class="sheet" id="sheet">
+    <button class="s-close" id="sheetClose" aria-label="Close menu">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M3 3l10 10M13 3 3 13"/></svg>
+    </button>
+    <a href="#">Home</a><a href="#">Collection</a><a href="#" id="sheetScene">Scene Rail</a><a href="#">Contact</a>
+    <div class="s-small"><a href="#">Find a Store</a><a href="#">Help</a><a href="#">Join Us</a><a href="#">Sign In</a></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
